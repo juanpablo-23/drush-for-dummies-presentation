@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Drush for Dummies - Introducción a Drush</title>
+
+		<meta name="description" content="A Beginner's Guide To Drush">
+		<meta name="author" content="Abraham Broca">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/blood.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Drush for Dummies</h1>
+					<h4>Introducción a Drush</h4>
+					<p>
+						<span><a href="https://www.twitter.com/juanpablo23" target="_blank">Juan Pablo De Santiago</a></span> - <a href="http://twitter.com/juanpablo23">@juanpablo23</a>
+					</p>
+				</section>
+				<section>
+					<h3>Acerca de Drush</h3>
+					<p>
+						Drush es una interfaz de comandos para Drupal. Es una herramienta altamente configurable que nos ayudara a la hora de estar haciendo desarrollo, ya que con uno o dos comandos en la terminal, reemplazamos los clicks y F5 en el UI.
+					</p>
+				</section>
+				<section>
+					<h3>¿Por qué utilizar Drush?</h3>
+					<p>
+						Drush le ahorrará una gran cantidad de tiempo.
+					</p>
+				</section>
+				<section>
+					<h3>¿Que podemos hacer con Drush?</h3>
+					<p>
+						<ul>
+							<li>El Gestor de paquetes de Drush, nos  permite descargar, activar, desinstalar y actualizar los módulos, temas, perfiles, etc.</li>
+							<li>Una bash shell personalizada.</li>
+							<li>Ejecutar cron</li>
+							<li>Vaciar cachés</li>
+							<li>Drush SQL Command</li>
+							<li>Etc..</li>
+						</ul>
+					</p>
+				</section>
+				<section>
+					<h3>Instalar Drush para Ubuntu 12.04</h3>
+					<p>Instalar pear</p>
+						<pre>
+							<code data-trim contenteditable>sudo apt-get install php-pear</code>
+						</pre>
+						<p>Instalar Drush</p>
+						<pre>
+							<code data-trim contenteditable>
+								pear channel-discover pear.drush.org
+pear install drush/drush
+							</code>
+						</pre>
+						<p>Verificar si está instalada correctamente</p>
+						<pre>
+							<code data-trim contenteditable>
+								drush version
+							</code>
+						</pre>
+						<p>Actualizar versión</p>
+						<pre>
+							<code data-trim contenteditable>
+								pear upgrade drush/drush
+							</code>
+						</pre>
+				</section>
+				<section>
+					<h3>Instalar Drush para otros SO</h3>
+							<p><a href="https://www.drupal.org/node/1791676" target="_blank">https://www.drupal.org/node/1791676</a></p>
+				</section>
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

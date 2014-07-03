@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Drush for Dummies - An Agile Development Box</title>
+
+		<meta name="description" content="Vagrant development for for agile projects">
+		<meta name="author" content="Abraham Broca">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Drush for Dummies</h1>
+					<h3>Introduccion al Drush</h3>
+					<p>
+						<small>Creado por: <a href="http://twitter.com/brocakun">Abraham Broca</a> / <a href="http://twitter.com/brocakun">@brocakun</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Va... what?</h2>
+					<p>
+						Yes, <b>Vagrant</b>, is a configurable lightweight, reproducible, and portable virtual environment.
+					</p>
+					<p>
+						<a href="http://www.vagrantup.com/">http://www.vagrantup.com/</a>
+					</p>
+
+					<aside class="notes">
+						Notes...
+					</aside>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h2>What do i need?</h2>
+
+						<p>
+							Virtual Box
+						</p>
+						<p>
+							Why Virtual box? Simple, because it's <strong>free</strong>.
+						</p>
+					<pre><code data-trim contenteditable>
+$ sudo apt-get install virtualbox
+					</code></pre>
+					<small>
+						Download the right virtual box version for your OS.	
+						<p>
+							<a href="https://www.virtualbox.org/wiki/Downloads" class="navigate-down">https://www.virtualbox.org/wiki/Downloads</a>
+						</p>
+					</small>
+
+
+					</section>
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<h2>Where can i get Vagrant?</h2>
+
+						<p>
+							<a href="http://www.vagrantup.com/downloads.html" class="navigate-down">http://www.vagrantup.com/downloads.html</a>
+						</p>
+					<pre><code data-trim contenteditable>
+$ wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.3_x86_64.deb -O ~/vagrant.deb
+$ sudo dpkg -i ~/vagrant.deb
+					</code></pre>
+					<small>
+						Download the right vagrant version for your OS.	
+					</small>
+
+					</section>
+				</section>
+
+				<section>
+					<h2>File sharing</h2>
+					<p>
+						We're very close, we need to enable NFS in order to share files between host and guest (Only UNIX).
+					</p>
+					<pre><code data-trim contenteditable>
+$ sudo apt-get install nfs-common nfs-kernel-server
+					</code></pre>
+					<small>
+						OSX already has the NFS Package installed by default (As far as i know)
+					</small>
+				</section>
+
+				<section>
+					<h2>Up that Sh*t!</h2>
+					<p>
+						Vagrant <strong>Plugin</strong> system. 
+					</p>
+					<small>
+						Tip: In order to keep the very last version of the vbguest tools install this vagrant plugin. 
+					</small>
+					<pre><code data-trim contenteditable>
+$ vagrant plugin install vagrant-vbguest
+					</code></pre>
+					<p>
+						Vagrant UP!
+					</p>
+
+					<pre><code data-trim contenteditable>
+$ cd ~
+$ mkdir ~/vagrant-drupal-day
+$ cd ~/vagrant-drupal-day
+$ vagrant init hashicorp/precise32
+$ vagrant up
+					</code></pre>
+					<small>
+						This is the Ubuntu 12.04/32bits LTS version.
+					</small>
+				</section>
+
+				<section>
+					<h2>Fix NFS Error!</h2>
+
+
+					<small>
+						<strong>Failed to mount folders in Linux guest</strong> 
+					</small>
+					<small>
+						mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant
+					</small>
+					<pre><code data-trim contenteditable>
+$ vagrant ssh
+$ sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+$ exit
+$ vagrant reload
+$ vagrant ssh
+					</code></pre>
+
+				</section>
+
+				<section>
+					<h2>I don't want this box anymore!</h2>
+
+
+					<small>
+						<strong>You can stop you box with:</strong> 
+					</small>
+					<pre><code data-trim contenteditable>
+$ vagrant halt
+					</code></pre>
+					<small>
+						This will only turn off your Vagrant box and next time you will have to turn it on with the vagrant up command
+					</small>
+
+					<small>
+						<strong>You can destroy you box with:</strong> 
+					</small>
+					<pre><code data-trim contenteditable>
+$ vagrant destroy
+					</code></pre>
+					<small>
+						This will completely remove your virtual box installation file, but your vagrant configuration files will not be removed.
+					</small>
+
+				</section>
+
+				<section>
+					<h2>But I'm here for Drupal!</h2>
+					<p>
+						Vagrant + Drupal + Solr + Xdebug.
+					</p>
+					<p>
+					<small>
+						<a href="http://renaud-cuny.com/en/blog/2014-02-09-vagrant-drupal-solr-xdebug/" class="navigate-down">http://renaud-cuny.com/en/blog/2014-02-09-vagrant-drupal-solr-xdebug/</a>
+					</small>
+					</p>
+					<p>
+					<small>
+						Lets start this again! logout from your recently created vagrant box and lets start another vagrant box
+					</small>
+					</p>
+					<pre><code data-trim contenteditable>
+$ git clone https://github.com/rcuny/vagrant-drupal-xdebug-solr ~/vagrant/vagrant-drupal-day-monterrey
+$ cd ~/vagrant/vagrant-drupal-day-monterrey
+$ sudo chmod 777 /var/www/
+$ vagrant up
+$ vagrant ssh
+$ sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+$ exit
+$ vagrant reload
+					</code></pre>
+						
+				</section>
+
+				<section>
+					<h2>Vagrant is up! Now what?</h2>
+					<pre><code data-trim contenteditable>
+$ vagrant ssh
+					</code></pre>
+
+					<h2>Where is my shared folder?</h2>
+					<pre><code data-trim contenteditable>
+$ cd /vagrant; ls
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Lets clone Drupal 7</h2>
+					<pre><code data-trim contenteditable>
+$ git clone --branch 7.x http://git.drupal.org/project/drupal.git d7
+					</code></pre>
+					<small>
+						OR
+					</small>
+					<pre><code data-trim contenteditable>
+$ drush dl drupal --drupal-project-rename=d7
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Go back to your WEB browser</h2>
+					<p>
+					<small>
+						<a href="http://192.168.66.6/d7" class="navigate-down">http://192.168.66.6/d7</a>
+					</small>
+					</p>
+					<small>
+						And ...
+					</small>
+				</section>
+
+				<section>
+					<h2>Magic!</h2>
+					<p>
+						<a href="http://192.168.66.6/d7" class="navigate-down"><img width="320" height="179" src="https://www.drupal.org/files/shia-magic.gif" alt="Meny"></a>
+					</p>
+				</section>
+
+				<section id="transitions">
+					<h2>Vagrant Configuration files</h2>
+					<pre><code data-trim contenteditable>
+$ cd ~/vagrant/vagrant-drupal-day-monterrey
+$ nano Vagrantfile
+					</code></pre>
+
+					<pre><code data-trim contenteditable>
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  ## Configuration
+
+  # Virtualbox tweaks. See http://docs.vagrantup.com/v2/virtualbox/configuration.html
+  config.vm.provider :virtualbox do |vb|
+    # More memory
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
+  end
+
+
+  ##  Network shares.
+
+  # UNIX users can use the nfs switch
+  config.vm.synced_folder ".", "/var/www", :nfs => true
+
+  # Windows users SHOULD default to the following settings - See http://docs.vagrantup.com/v2/synced-folders/nfs.html
+  # config.vm.synced_folder ".", "/var/www"
+
+
+  ## Provision
+
+  # scripts/provision.sh will provision the box
+  config.vm.provision :shell, :inline => "
+    sh /vagrant/scripts/provision.sh;
+  "
+
+
+  ## The Vagrant Box
+
+  # Defines the Vagrant box name, download URL, IP and hostname
+  config.vm.define :vagrant do |vagrant|
+    vagrant.vm.box = "precise64-apache2-xdebug-solr"
+    # The following box is stored on a server of mine, feel free to use it directly.
+    # If you want to rebuild it, check the source repo: https://github.com/rcuny/vagrant-apache2-xdebug-solr
+    vagrant.vm.box_url = "http://rcuny.li/1dzKD4H"
+    vagrant.vm.network :private_network, ip: "192.168.66.6"
+    vagrant.vm.hostname = "vagrant.dcl"
+  end
+end
+
+					</code></pre>
+					<small>
+						<a href="https://docs.vagrantup.com/v2/vagrantfile/index.html" class="navigate-down">https://docs.vagrantup.com/v2/vagrantfile/index.html</a>
+					</small>
+
+				</section>
+
+				<section id="transitions">
+					<h2>Vagrant Provision Profile</h2>
+					<pre><code data-trim contenteditable>
+$ cd ~/vagrant/vagrant-drupal-day-monterrey/scripts
+$ nano provision.sh
+					</code></pre>
+
+					<pre><code data-trim contenteditable>
+#! /bin/bash
+
+##### INFO #####
+
+# Provision.sh
+#
+# This script will provision a clean Vagrant box.
+# After provisioning a box, it can be repackaged.
+# So that project setup time can be reduced.
+#
+# Author: Jurgen Verhasselt - https://github.com/sjugge
+# Modified by: Renaud Cuny for Boleia - https://github.com/rcuny
+
+
+##### VARIABLES #####
+
+# Throughout this script, some variables are used, these are defined first.
+# These variables can be altered to fit your specific needs or preferences.
+
+# Server name
+HOSTNAME="vagrant.dcl"
+
+# Locale
+LOCALE_LANGUAGE="en_US" # can be altered to your prefered locale, see http://docs.moodle.org/dev/Table_of_locales
+LOCALE_CODESET="en_US.UTF-8"
+
+# Timezone
+TIMEZONE="Europe/Paris" # can be altered to your specific timezone, see http://manpages.ubuntu.com/manpages/jaunty/man3/DateTime::TimeZone::Catalog.3pm.html
+
+# PHP settings
+MEMORY_LIMIT="256M"
+UPLOAD_MAX_FILESIZE="128M"
+POST_MAX_SIZE="128M"
+
+# Drush
+DRUSH_VERSION="6.2.0" # prefered Drush release from https://github.com/drush-ops/drush/releases
+
+#----- end of configurable variables -----#
+
+
+##### PROVISION CHECK ######
+
+# The provision check is intented to not run the full provision script when a box has already been provisioned.
+# At the end of this script, a file is created on the vagrant box, we'll check if it exists now.
+echo "[vagrant provisioning] Checking if the box was already provisioned..."
+
+if [ -e "/home/vagrant/.provision_check" ]
+then
+  # Skipping provisioning if the box is already provisioned
+  echo "[vagrant provisioning] The box is already provisioned..."
+  exit
+fi
+
+
+##### PROVISION DRUPAL TOOLS #####
+
+echo "[vagrant provisioning] Installing LAMP stack..."
+
+# Set Locale, see https://help.ubuntu.com/community/Locale#Changing_settings_permanently
+echo "[vagrant provisioning] Setting locale..."
+sudo locale-gen $LOCALE_LANGUAGE $LOCALE_CODESET
+
+# Set timezone, for unattended info see https://help.ubuntu.com/community/UbuntuTime#Using_the_Command_Line_.28unattended.29
+echo "[vagrant provisioning] Setting timezone..."
+echo $TIMEZONE | sudo tee /etc/timezone
+sudo dpkg-reconfigure --frontend noninteractive tzdata
+
+# Download and update package lists
+echo "[vagrant provisioning] Package manager updates..."
+sudo apt-get update
+
+# Install Drush
+echo "[vagrant provisioning] Installing drush..."
+sudo wget -q https://github.com/drush-ops/drush/archive/$DRUSH_VERSION.tar.gz # download drush from github
+sudo tar -C /opt/ -xzf $DRUSH_VERSION.tar.gz # untar drush in /opt
+sudo chown -R vagrant:vagrant /opt/drush-$DRUSH_VERSION # ensure the vagrant user has sufficiënt rights
+sudo ln -s /opt/drush-$DRUSH_VERSION/drush /usr/sbin/drush # add drush to /usr/sbin
+sudo rm -rf /home/vagrant/$DRUSH_VERSION.tar.gz # remove the downloaded tarbal
+
+
+##### CONFIGURATION #####
+
+# Changing PHP settings
+echo "[vagrant provisioning] Configuring PHP5..."
+# Change settings for apache2 PHP
+sudo sed -i "s@memory_limit.*=.*@memory_limit=$MEMORY_LIMIT@g" /etc/php5/apache2/php.ini
+sudo sed -i "s@upload_max_filesize.*=.*@upload_max_filesize=$UPLOAD_MAX_FILESIZE@g" /etc/php5/apache2/php.ini
+sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php5/apache2/php.ini
+# Change settings for command line interface PHP (used by Drush)
+sudo sed -i "s@memory_limit.*=.*@memory_limit=$MEMORY_LIMIT@g" /etc/php5/cli/php.ini
+sudo sed -i "s@upload_max_filesize.*=.*@upload_max_filesize=$UPLOAD_MAX_FILESIZE@g" /etc/php5/cli/php.ini
+sudo sed -i "s@post_max_size.*=.*@post_max_size=$POST_MAX_SIZE@g" /etc/php5/cli/php.ini
+sudo service apache2 restart # restart apache so latest php config is picked up
+
+# Configuring Solr for Drupal
+echo "[vagrant provisioning] Configuring Solr for Drupal..."
+sudo cp /vagrant/scripts/resources/search_api_solr/solr-conf/4.x/* /opt/solr/collection1/conf/
+sudo /etc/init.d/tomcat7 restart
+
+# Hostname
+echo "[vagrant provisioning] Setting hostname..."
+sudo hostname $HOSTNAME
+
+
+##### CLEAN UP #####
+
+sudo dpkg --configure -a # when upgrade or install doesnt run well (e.g. loss of connection) this may resolve quite a few issues
+apt-get autoremove -y # remove obsolete packages
+
+
+##### PROVISION CHECK #####
+
+# Create .provision_check for the script to check on during a next vargant up.
+echo "[vagrant provisioning] Creating .provision_check file..."
+touch .provision_check
+
+					</code></pre>
+					<small>
+						<a href="https://docs.vagrantup.com/v2/provisioning/index.html" class="navigate-down">https://docs.vagrantup.com/v2/provisioning/index.html</a>
+					</small>
+
+				</section>
+
+				<section>
+					<h2>Interesting links</h2>
+					<p>These are a few interesting articles and projects:</p>
+					<ul>
+						<li class="fragment"><em><a href="" class="navigate-down">https://vagrantcloud.com/</a></em></li>
+						<li class="fragment"><em><a href="" class="navigate-down">https://docs.vagrantup.com/v2/cli/package.html</a></em></li>
+						<li class="fragment"><em><a href="" class="navigate-down">https://docs.vagrantup.com/v2/provisioning/index.html</a></em></li>
+						<li class="fragment"><em><a href="" class="navigate-down">https://github.com/mitchellh/vagrant-aws</a></em></li>
+						<li class="fragment"><em><a href="" class="navigate-down">https://github.com/smdahlen/vagrant-digitalocean</a></em></li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Questions...</h1>
+				</section>
+
+				<section>
+					<h1>THE END?</h1>
+					<h3>BY <a href="http://twitter.com/brocakun">Abraham Broca</a> / <a href="http://twitter.com/brocakun">@brocakun</a></h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
