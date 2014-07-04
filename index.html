@@ -104,7 +104,87 @@ pear install drush/drush
 					<h3>Instalar Drush para otros SO</h3>
 							<p><a href="https://www.drupal.org/node/1791676" target="_blank">https://www.drupal.org/node/1791676</a></p>
 				</section>
+				<section>
+					<h3>Comencemos con Drush</h3>
+							<p><img src="ibgX4kJsqIw774.gif"></p>
+				</section>
+				<section>
+					<h3>Crear Base de Datos</h3>
+					<p>
+						<pre>
+							<code data-trim contenteditable>
+								mysql -u root -p
+CREATE DATABASE drupal;
+							</code>
+						</pre></p>
+				</section>
+				<section>
+					<h3>Descargar Drupal via Drush</h3>
+					<p>
+						<pre>
+							<code data-trim contenteditable>
+								drush dl drupal --drupal-project-rename=folder_name
+							</code>
+						</pre></p>
+				</section>
+				<section>
+					<h3>Instalar Drupal via Drush</h3>
+					<p>
+						<pre>
+							<code data-trim contenteditable>
+								drush site-install standard --db-url=mysql://user:pass@localhost/db_name --site-name=your_site_name --account-name=admin --account-pass=your_password
+							</code>
+						</pre></p>
+				</section>
+				<section>
+					<h3>Comandos básicos de Drush</h3>
+					<p>
+						<pre>
+							<code data-trim contenteditable>
+								drush dl zen
+drush en -y zen
+drush vset theme_default zen
 
+drush dl views
+drush en -y views
+
+drush pml
+
+drush pml --no-core
+
+drush user-create username --mail="email@example.com" --password="password"
+
+drush user-cancel username
+
+drush user-password admin --password="new_pass"
+
+drush up -n | grep available
+
+drush up views
+
+drush upc views
+
+drush up drupal
+
+							</code>
+						</pre></p>
+				</section>
+				<section>
+					<h3>Conclusiones Drush</h3>
+					<p><img src="cosnclusion.gif"></p>
+				</section>
+
+				<section>
+					<h3>Sitios Interes</h3>
+					<p>
+						<ul>
+							<li>http://drush.ws/</li>
+							<li>https://www.digitalocean.com/community/tutorials/a-beginner-s-guide-to-drush-the-drupal-shell</li>
+							<li>http://knackforge.com/blog/sabareesh/most-frequently-used-drush-commands</li>
+							<li>https://github.com/juanpablo-23/drush-for-dummies-presentation</li>
+						</ul>
+					</p>
+				</section>
 
 			</div>
 
